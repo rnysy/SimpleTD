@@ -6,9 +6,11 @@ using UnityEngine.EventSystems;
 public class Tile : MonoBehaviour
 {
     public Color hoverColor;
+    public Color notEnoughMoneyColor;
     public Vector3 positionOffset;
 
-    private GameObject curTurret;
+    [Header("Option")]
+    public GameObject curTurret;
 
     private Renderer rend;
     private Color startColor;
@@ -22,9 +24,14 @@ public class Tile : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
+    public Vector3 GetBuildPosition()
+    {
+        return transform.position + positionOffset;
+    }
+
     private void OnMouseDown()
     {   
-        if(buildManager.GetTurretToBuild() == null)
+        if(!buildManager.CanBuild)
         {
             return;
         }
@@ -34,16 +41,24 @@ public class Tile : MonoBehaviour
             return;
         }
 
-        GameObject turretTobuild = buildManager.GetTurretToBuild();
-        curTurret = (GameObject)Instantiate(turretTobuild, transform.position + positionOffset, transform.rotation);
+        buildManager.BuildTurret(this);
     }
     private void OnMouseEnter()
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        if (buildManager.GetTurretToBuild() == null)
+
+        if (!buildManager.CanBuild)
             return;
-        rend.material.color = hoverColor;
+        if (buildManager.HaveMoney)
+        {
+            rend.material.color = hoverColor;
+        }
+        else
+        {
+            rend.material.color = notEnoughMoneyColor;
+        }
+
     }
 
     private void OnMouseExit()
