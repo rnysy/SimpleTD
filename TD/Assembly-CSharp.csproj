@@ -63,18 +63,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BuildManager.cs" />
-    <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\CameraManager.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\MoneyUI.cs" />
-    <Compile Include="Assets\Scripts\PlayerStat.cs" />
-    <Compile Include="Assets\Scripts\Shop.cs" />
-    <Compile Include="Assets\Scripts\Tile.cs" />
-    <Compile Include="Assets\Scripts\Turret.cs" />
-    <Compile Include="Assets\Scripts\TurretManager.cs" />
-    <Compile Include="Assets\Scripts\WaveSpawner.cs" />
-    <Compile Include="Assets\Scripts\WayPoint.cs" />
+    <Compile Include="Assets\Scripts\Game\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Game\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerStat.cs" />
+    <Compile Include="Assets\Scripts\Game\Tile.cs" />
+    <Compile Include="Assets\Scripts\Game\Turret.cs" />
+    <Compile Include="Assets\Scripts\Game\WayPoint.cs" />
+    <Compile Include="Assets\Scripts\Manager\BuildManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\TurretManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\WaveSpawner.cs" />
+    <Compile Include="Assets\Scripts\UI\LifeUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MoneyUI.cs" />
+    <Compile Include="Assets\Scripts\UI\Shop.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Unity/2019.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
