@@ -32,9 +32,10 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Debug.Log("죽음");
         PlayerStat.Money += moneyGain;
+
+        GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
         Destroy(gameObject);
     }
 
