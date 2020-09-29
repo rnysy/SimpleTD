@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\Bullet.cs" />
     <Compile Include="Assets\Scripts\Game\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Game\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerStat.cs" />
     <Compile Include="Assets\Scripts\Game\Tile.cs" />
     <Compile Include="Assets\Scripts\Game\Turret.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Scripts\Manager\BuildManager.cs" />
     <Compile Include="Assets\Scripts\Manager\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameOver.cs" />
     <Compile Include="Assets\Scripts\Manager\TurretManager.cs" />
     <Compile Include="Assets\Scripts\Manager\WaveSpawner.cs" />
     <Compile Include="Assets\Scripts\UI\LifeUI.cs" />

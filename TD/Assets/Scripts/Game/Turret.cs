@@ -5,6 +5,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     public Transform target;
+    private Enemy targetEnemy;
 
     [Header("Turret Setup")]
 
@@ -17,6 +18,15 @@ public class Turret : MonoBehaviour
     public float range = 15f;
     public float fireRate = 1f;
     private float fireCount = 0f;
+
+    public bool useLaser = false;
+
+    public int damageOverTime = 30;
+    public float slowPer = .5f;
+
+    public LineRenderer lineRenderer;
+    public ParticleSystem impactEffect;
+    public Light impactLight;
 
     public GameObject bulletPrefab;
     public Transform firePoint;
@@ -46,6 +56,7 @@ public class Turret : MonoBehaviour
         if(nearestEnemy != null && shortestDistance <= range)
         {
             target = nearestEnemy.transform;
+            targetEnemy = nearestEnemy.GetComponent<Enemy>();
         }
         else
         {
@@ -57,21 +68,69 @@ public class Turret : MonoBehaviour
     {
         if(target == null)
         {
+            if (useLaser)
+            {
+                if (lineRenderer.enabled)
+                {
+                    lineRenderer.enabled = false;
+                    impactEffect.Stop();
+                    impactLight.enabled = false;
+                }               
+
+            }
             return;
         }
 
+        LockOnTarget();
+
+        if (useLaser)
+        {
+            Laser();
+        }
+        else
+        {
+            if (fireCount <= 0f)
+            {
+                Fire();
+                fireCount = 1f / fireRate;
+            }
+
+            fireCount -= Time.deltaTime;
+        }
+
+    }
+
+    void LockOnTarget()
+    {
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotate = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotate, Time.deltaTime * turnSpeed).eulerAngles;
         PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
 
-        if (fireCount <= 0f)
+    void Laser()
+    {
+        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.Slow(slowPer);
+
+        Debug.Log("레이저");
+        if (!lineRenderer.enabled)
         {
-            Fire();
-            fireCount = 1f / fireRate;
+            lineRenderer.enabled = true;
+            impactEffect.Play();
+            impactLight.enabled = true;
         }
 
-        fireCount -= Time.deltaTime;
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, target.position);
+
+        Vector3 direction = firePoint.position - target.position;
+
+        impactEffect.transform.position = target.position + direction.normalized;
+
+        impactEffect.transform.rotation = Quaternion.LookRotation(direction);
+
+
     }
 
     void Fire()
